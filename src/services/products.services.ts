@@ -15,4 +15,8 @@ export class ProductServices{
 
         return newProduct;
     }
+
+    getProduct() {
+        return productsDatabase
+    }
 }

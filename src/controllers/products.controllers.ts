@@ -9,4 +9,12 @@ export class ProductsControllers{
 
         return res.status(201).json(response);
     }
+
+    getProduct(req: Request, res: Response) {
+        const productsServices =  new ProductServices()
+
+        const response = productsServices.getProduct()
+
+        return res.status(200).json(response)
+    }
 }
