@@ -19,4 +19,10 @@ export class ProductServices{
     getProduct() {
         return productsDatabase
     }
+
+    getOneProduct(id: string) {
+        const findProduct = productsDatabase.find(product => product.id == Number(id))
+
+        return findProduct
+    }
 }

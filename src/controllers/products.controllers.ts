@@ -17,4 +17,12 @@ export class ProductsControllers{
 
         return res.status(200).json(response)
     }
+
+    getOneProduct(req: Request, res: Response) {
+        const productsServices = new ProductServices()
+
+        const response = productsServices.getOneProduct(req.params.id)
+
+        return res.status(200).json(response)
+    }
 }

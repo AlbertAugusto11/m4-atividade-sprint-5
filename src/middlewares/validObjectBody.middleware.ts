@@ -1,11 +1,25 @@
 import { NextFunction, Request, Response } from "express";
 import { AnyZodObject, ZodError } from "zod";
 
-export class ValidObjectBody {
-    static execute(shema: AnyZodObject) {
-        return (req: Request, res: Response, next: NextFunction) => {
+interface IValidRequest {
+    params?: AnyZodObject,
+    body?: AnyZodObject,
+    query?: AnyZodObject,
+}
+
+export class ValidRequest {
+    static execute(schema: IValidRequest) {
+        return async (req: Request, res: Response, next: NextFunction) => {
             try {
-                req.body = shema.parse(req.body)
+                if(schema.params){
+                    req.params = await schema.params.parseAsync(req.params)
+                }
+                if(schema.body){
+                    req.body = await schema.body.parseAsync(req.body)
+                }
+                if(schema.query){
+                    req.query = await schema.query.parseAsync(req.query)
+                }
     
                 next()
             } catch (error) {
